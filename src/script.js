@@ -1,6 +1,6 @@
 let fs = require('fs');
 
-module.exports = class Visitor{
+class Visitor{
     constructor(fullName, age, dateOfVisit, timeOfVisit, comments, nameOfAssistant){
         this.fullName = fullName;
         this.age = age;
@@ -10,25 +10,23 @@ module.exports = class Visitor{
         this.nameOfAssistant = nameOfAssistant;
     }
 
-
-
-    async save() { 
-        try {
-            await fs.writeFile(`visitor_${(this.fullName)
-                .replace(' ','_')
-                .toLowerCase()}.json`,
-                 JSON.stringify(this, null, 4)
-            );
-             console.log('The data was add to file!');
-           } catch (err) {
-             console.log(err);
-           }
- 
+    async save(){
+        await fs.writeFile(`visitor_${(this.fullName).replace(' ','_').toLowerCase()}.json`,JSON.stringify(this, null, 4), function(err){
+            if(err) throw new Error(err);
+            console.log("Visitor's file saved");
+        });
     }
 
+
 }
-
-
+function load(string){
+    let fileName = string.replace(' ','_').toLowerCase();
+    fs.readFile(`../src/visitor_${fileName}.json`, (err, data) => {
+        if (err) throw err;
+        console.log(JSON.parse(data));
+      });
+}
+module.exports = {Visitor,load};
 
 
 
