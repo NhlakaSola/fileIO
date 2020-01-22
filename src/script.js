@@ -13,7 +13,7 @@ class Visitor{
     async save(){
         await fs.writeFile(`visitor_${(this.fullName).replace(' ','_').toLowerCase()}.json`,JSON.stringify(this, null, 4), function(err){
             if(err) throw new Error(err);
-            console.log("Visitor's file saved");
+            return "Visitor's file saved";
         });
     }
 
