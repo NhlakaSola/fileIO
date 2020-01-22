@@ -19,11 +19,11 @@ class Visitor{
 
 
 }
-function load(string){
+async function load(string){
     let fileName = string.replace(' ','_').toLowerCase();
-    fs.readFile(`../src/visitor_${fileName}.json`, (err, data) => {
+    await fs.readFile(`visitor_${fileName}.json`, (err, data) => {
         if (err) throw err;
-        console.log(JSON.parse(data));
+        return JSON.parse(data);
       });
 }
 module.exports = {Visitor,load};
