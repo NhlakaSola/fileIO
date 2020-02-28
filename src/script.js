@@ -11,21 +11,21 @@ class Visitor{
     }
 
     async save(){
-        await fs.writeFile(`visitor_${(this.fullName).replace(' ','_').toLowerCase()}.json`,JSON.stringify(this, null, 4), function(err){
-            if(err) throw new Error(err);
-            return "Visitor's file saved";
+        await fs.writeFile(`visitor_${(this.fullName).replace(' ','_').toLowerCase()}.json`,JSON.stringify(this, null, 4),
+            function(err){
+                if(err) throw new Error(err);
+                return "Visitor's file saved";
         });
+       }
     }
 
-
-}
-async function load(string){
-    let fileName = string.replace(' ','_').toLowerCase();
-    await fs.readFile(`visitor_${fileName}.json`, (err, data) => {
-        if (err) throw err;
-        return JSON.parse(data);
-      });
-}
+    async function load(string){
+        let fileName = string.replace(' ','_').toLowerCase();
+        await fs.readFile(`visitor_${fileName}.json`, (err, data) => {
+            if (err) throw err;
+            return JSON.parse(data);
+        });
+    }
 module.exports = {Visitor,load};
 
 
